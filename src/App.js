@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  HashRouter
+} from "react-router-dom"
+import { Provider } from "react-redux"
+import Store from "./store"
+import AdminRoute from "./components/AdminRoute"
+import Dashboard from "./screens/Dashboard"
+import NoMatch from "./screens/NoMatch"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={Store}>
+      <Router basename="/app" forceRefresh={false}>
+        <Switch>
+          <AdminRoute exact path="/" name="Dashboard" component={Dashboard} />
+          <AdminRoute component={NoMatch} />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

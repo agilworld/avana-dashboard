@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "bootstrap": "4.6.0",
-    "node-sass": "^5.0.0",
+    "clsx": "^1.1.1",
+    "env-cmd": "^10.1.0",
+    "lodash.startcase": "^4.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
@@ -18,9 +22,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd -f ./.env.local react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "start:prod": "serve -s build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "reactotron-react-js": "^3.3.7",
+    "reactotron-redux": "^3.1.3"
   }
 }
