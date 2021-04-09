@@ -1,4 +1,4 @@
-import { SIDEBAR_ACTIVE_MENU } from "../_types/dux"
+import { SIDEBAR_ACTIVE_MENU, SIDEBAR_UPDATE_MENU } from "../_types/dux"
 
 export const setActiveMenu = (menuArgs) => {
     return {
@@ -6,3 +6,10 @@ export const setActiveMenu = (menuArgs) => {
        payload:menuArgs
      }
  }
+
+ export const updateMenu = (menuArgs) => {
+  return {
+     type:SIDEBAR_UPDATE_MENU,
+     payload:menuArgs
+   }
+}

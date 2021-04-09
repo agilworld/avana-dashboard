@@ -87,7 +87,7 @@ const Header = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            {menuId.parent?startCase(menuId.parent):""} {menuId.parent? ' - ' + startCase(menuId.child):""}
+            {menuId.parent?startCase(menuId.parent):""} {menuId.child? ' - ' + startCase(menuId.child):""}
           </Typography>
           
         </Toolbar>

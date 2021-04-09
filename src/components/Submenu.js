@@ -17,21 +17,13 @@ import { setActiveMenu } from "../actions/common"
 const styles = {
     listItem: {
         paddingLeft: '1rem',
-        paddingTop:10,
-        paddingBottom:10,
+        paddingTop:16,
+        paddingBottom:16,
     },
     listItemText: {
         paddingLeft: 2,
-        color:'#fff',
+        color:'#ccc',
         fontSize: '1rem',
-    },
-    sidebarIsOpen: {
-        paddingLeft: 25,
-        transition: 'padding-left 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
-    },
-    sidebarIsClosed: {
-        paddingLeft: 0,
-        transition: 'padding-left 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
     },
     nested:{
         paddingLeft: 24,
@@ -45,6 +37,7 @@ const SubMenu = ({
     icon,
     classes,
     children,
+    isShowed,
     submenus
 }) => {
         const history = useHistory()
@@ -55,19 +48,28 @@ const SubMenu = ({
         const handleToggle = (key) => {
             setIsCollapsed(!isCollapsed)
             if( !submenus ) {
-                //updateToggle()
+                //
                 dispatch(setActiveMenu({
-                    parent:key
+                    parent:key,
+                    child:null
                 }))
-            }
+                updateToggle()
+            } 
         }
 
-        const handleChildToggle = (parentMenu, key) => {
-            updateToggle(key)
+        const handleChildToggle = (parentMenu, menu) => {
+            if( !menu.isAllowed ) {
+                return
+            }
+            updateToggle(menu.id)
             dispatch(setActiveMenu({
                 parent:parentMenu,
-                child:key
+                child:menu.id
             }))
+        }
+
+        if( ! isShowed ) {
+            return null
         }
 
         return (<Fragment>
@@ -91,24 +93,44 @@ const SubMenu = ({
                     dense
                     component="div"
                 >
-                    {submenus.map(submenu=>
-                        <ListItem
-                            dense
-                            button
-                            className={classes.nested}
-                            selected={menuId ? (menuId.child === submenu.id ? true:false) : false}
-                            onClick={()=>handleChildToggle(name, submenu.id)}
-                        >
-                            <ListItemText
-                                primary={startCase(submenu.id)}
-                            />
-                        </ListItem>
+                    {submenus.map(submenu=><SubListItem 
+                            parentId={name}
+                            menuId={menuId} 
+                            classname={classes.nested}
+                            submenu={submenu} 
+                            handleChildToggle={handleChildToggle} 
+                        />
                     )}
                 </List>
                 <Divider />
             </Collapse>) : null}
         </Fragment>)
     }
+
+const SubListItem = ({
+    handleChildToggle,
+    menuId,
+    submenu,
+    classname,
+    parentId
+}) => {
+    if( ! submenu.isShowed ) {
+        return null
+    }
+    return (
+        <ListItem
+            dense
+            button
+            className={classname}
+            selected={menuId ? (menuId.child === submenu.id ? true:false) : false}
+            onClick={()=>handleChildToggle(parentId, submenu)}
+        >
+            <ListItemText
+                primary={startCase(submenu.id)}
+            />
+        </ListItem>
+    )
+}
 
 const enhance = withStyles(styles)(SubMenu)
 
