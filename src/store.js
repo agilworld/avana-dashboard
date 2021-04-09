@@ -7,7 +7,7 @@ const middleware = [
     thunk
 ];
 
-composeSetup = compose(
+const composeSetup = compose(
     applyMiddleware(...middleware)
 )
 
