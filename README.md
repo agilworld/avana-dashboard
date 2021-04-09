@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# React Dashboard - Menu Setting Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Menu setting demo enable Show/Hide or Active/Deactivate sidebar menu.
+Built under Material UI Component
 
 ## Available Scripts
 
